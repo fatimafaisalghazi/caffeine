@@ -36,7 +36,7 @@ val Typography = Typography(
     */
 )
 val urbaniFamily = FontFamily(
-    Font(R.font.urbani, FontWeight.Normal),
-    Font(R.font.urbani, FontWeight.Medium),
-    Font(R.font.urbani, FontWeight.SemiBold),
+    Font(R.font.sniglet_regular, FontWeight.Normal),
+    Font(R.font.urbanist_medium, FontWeight.Medium),
+    Font(R.font.urbanist_semibold, FontWeight.SemiBold),
 )

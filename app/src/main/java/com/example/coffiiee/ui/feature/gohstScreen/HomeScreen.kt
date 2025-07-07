@@ -1,4 +1,4 @@
-package com.example.coffiiee
+package com.example.coffiiee.ui.feature.gohstScreen
 
 
 import androidx.compose.animation.animateColor
@@ -23,6 +23,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,9 +37,19 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.compose.rememberNavController
+import com.example.coffiiee.HomeScreenAppBar
+import com.example.coffiiee.R
+import com.example.coffiiee.component.ActionButton
+import com.example.coffiiee.component.ButtonText
+import com.example.coffiiee.component.WelcomeMessageText
+import com.example.coffiiee.navigation.LocalNavController
+import com.example.coffiiee.navigation.Routes
+import com.example.coffiiee.ui.theme.urbaniFamily
 
 @Composable
 fun HomeScreen() {
+    val navController = LocalNavController.current
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,9 +60,10 @@ fun HomeScreen() {
         HomeScreenAppBar()
         WelcomeMessage()
         FlyingGhost()
-        ButtonSection()
+        ButtonSection(onClick = { navController.navigate(route = Routes.ChoosingCoffeeScreen) })
     }
 }
+
 
 @Composable
 private fun WelcomeMessage(modifier: Modifier = Modifier) {
@@ -64,7 +76,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             repeatMode = RepeatMode.Reverse,
         ),
     )
-    val opesittar by infiniteTransition.animateColor(
+    val opesitStar by infiniteTransition.animateColor(
         initialValue = Color.LightGray,
         targetValue = Color.DarkGray,
         animationSpec = InfiniteRepeatableSpec(
@@ -76,9 +88,11 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
     Box(
         contentAlignment = Alignment.Center,
     ) {
-        Box(Modifier
-            .zIndex(1f)
-            .offset(y = -90.dp, x = 90.dp)){
+        Box(
+            Modifier
+                .zIndex(1f)
+                .offset(y = -90.dp, x = 90.dp)
+        ) {
             Icon(
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
@@ -86,21 +100,23 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
                 tint = stars
             )
         }
-        Box(Modifier
-            .zIndex(1f)
-            .offset(y = -30.dp, x = -78.dp)
-        ){
+        Box(
+            Modifier
+                .zIndex(1f)
+                .offset(y = -30.dp, x = -78.dp)
+        ) {
             Icon(
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
                 Modifier.size(24.dp),
-                tint = opesittar
+                tint = opesitStar
             )
         }
-        Box(Modifier
-            .zIndex(1f)
-            .offset(y = 100.dp, x = 78.dp)
-        ){
+        Box(
+            Modifier
+                .zIndex(1f)
+                .offset(y = 100.dp, x = 78.dp)
+        ) {
             Icon(
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
@@ -115,7 +131,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
                     "to Focus",
             fontSize = 32.sp,
             fontWeight = FontWeight.W400,
-            fontFamily = FontFamily.SansSerif,
+            fontFamily = urbaniFamily,
             lineHeight = 50.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center)
@@ -129,7 +145,7 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
     val scale by infiniteTransition.animateValue(
         targetValue = 34.dp,
         animationSpec = InfiniteRepeatableSpec(
-            animation = tween(700) ,
+            animation = tween(700),
             repeatMode = RepeatMode.Reverse
         ),
         initialValue = 50.dp,
@@ -173,38 +189,16 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ButtonSection(modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
+private fun ButtonSection(
+    onClick: () -> Unit, modifier: Modifier = Modifier
+) {
+    ActionButton(onClick = { onClick() }
     ) {
-        Button(
-            onClick = {},
-            colors = ButtonColors(
-                containerColor = Color(0xFF1F1F1F),
-                contentColor = Color(0xFFFFFFFF),
-                disabledContainerColor = Color(0xFF121212),
-                disabledContentColor = Color(0x88FFFFFF)
-            ),
-        ) {
-            Row(
-                Modifier.padding(horizontal = 32.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    "bring my coffee",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.W700,
-                    fontFamily = FontFamily.SansSerif,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(vertical = 18.5.dp),
-                )
-                Icon(
-                    painter = painterResource(R.drawable.ic_coffie),
-                    contentDescription = null,
-                    Modifier.size(24.dp)
-                )
-            }
-        }
+        ButtonText(text = "bring my coffee")
+        Icon(
+            painter = painterResource(R.drawable.ic_coffie),
+            contentDescription = null,
+            Modifier.size(24.dp)
+        )
     }
 }
