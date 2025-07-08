@@ -11,9 +11,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.coffiiee.component.CircleButton
-import com.example.coffiiee.viewModel.CoffeeUiState
-import com.example.coffiiee.viewModel.CupSizeViewModel
+import com.example.coffiiee.ui.component.CircleButton
+import com.example.coffiiee.ui.viewModel.CoffeeUiState
+import com.example.coffiiee.ui.viewModel.CupSizeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -27,11 +27,11 @@ fun ButtonAnimation(
     val shadow = animateDpAsState(targetValue = if (isSelected) 8.dp else 0.dp, label = "shadow")
     val color by animateColorAsState(
         targetValue = if (isSelected) Color(0xFF7C351B) else Color(0xFFF5F5F5),
-        animationSpec = tween(700),
+        animationSpec = tween(400),
     )
     val colorText by animateColorAsState(
         targetValue = if (!isSelected) Color(0x1F1F1F99) else Color(0xFFFFFFDE),
-        animationSpec = tween(700),
+        animationSpec = tween(400),
     )
     CircleButton(
         onClick = { viewModel.onButtonPressed(buttonName) },

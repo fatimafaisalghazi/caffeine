@@ -1,4 +1,4 @@
-package com.example.coffiiee.component
+package com.example.coffiiee.ui.component
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

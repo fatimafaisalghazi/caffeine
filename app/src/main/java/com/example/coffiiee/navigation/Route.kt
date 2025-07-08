@@ -16,6 +16,9 @@ sealed interface Routes {
 
     @Serializable
     data object LoadingScreen :Routes
+
+    @Serializable
+    data object ClosingCupScreen :Routes
 }
 
 //sealed interface Route {

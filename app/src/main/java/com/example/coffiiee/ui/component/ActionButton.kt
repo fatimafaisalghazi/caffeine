@@ -1,4 +1,4 @@
-package com.example.coffiiee.component
+package com.example.coffiiee.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +19,7 @@ fun ActionButton(
     content: @Composable () -> Unit
 ) {
     Box(
+        modifier=modifier,
         contentAlignment = Alignment.Center,
     ) {
         Button(
@@ -31,7 +32,7 @@ fun ActionButton(
             ),
         ) {
             Row(
-                modifier.padding(horizontal = 32.dp),
+                Modifier.padding(horizontal = 32.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

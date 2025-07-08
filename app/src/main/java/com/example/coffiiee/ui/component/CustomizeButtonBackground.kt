@@ -1,4 +1,4 @@
-package com.example.coffiiee.component
+package com.example.coffiiee.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,13 +15,13 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomizeButtonBackground(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = {}
+    color: Color = Color(0xFFF5F5F5),
+    content: @Composable () -> Unit = {},
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(100.dp))
-            .background(Color(0xFFF5F5F5))
-            .padding(vertical = 8.dp, horizontal = 8.dp),
+            .background(color),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

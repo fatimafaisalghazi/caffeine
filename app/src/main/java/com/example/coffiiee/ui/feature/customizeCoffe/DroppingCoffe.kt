@@ -1,54 +1,123 @@
 package com.example.coffiiee.ui.feature.customizeCoffe
 
+
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffiiee.R
-import com.example.coffiiee.component.CircleButton
-import com.example.coffiiee.component.CustomizeButtonBackground
-import com.example.coffiiee.viewModel.CoffeeViewModel
-import org.koin.androidx.compose.koinViewModel
+import com.example.coffiiee.ui.component.CircleButton
+import com.example.coffiiee.ui.component.CustomizeButtonBackground
 
 
 @Composable
-fun DroppingCoffeeButtons(
-    viewModel: CoffeeViewModel = koinViewModel()
-) {
-    val shadow = animateDpAsState(targetValue =  8.dp )
+fun DroppingCoffeeButtons() {
 
-    CustomizeButtonBackground{
-        CircleButton(
-            onClick = { viewModel.dropCoffee("s") },
-            color = Color.DarkGray,
-            shadow = shadow
+    val buttonCount = 3
+    var selectedIndex by remember { mutableStateOf(-1) }
+
+    val dropOffsets = List(buttonCount) { index ->
+        animateDpAsState(
+            targetValue = if (selectedIndex == index) -400.dp else (-500).dp,
+            animationSpec = tween(700)
+        )
+    }
+    val alphaAnims = List(buttonCount) { index ->
+        animateFloatAsState(
+            targetValue = if (selectedIndex == index) 1f else 0f,
+            animationSpec = tween(300)  // خفّضنا المدة إلى 300 مللي ثانية فقط للfade
+        )
+    }
+
+
+    Box(modifier = Modifier.height(150.dp)) {
+
+        // Box ثابت أعلى الشاشة للقهوة
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp)
         ) {
-            IconButton()
+            for (i in 0 until buttonCount) {
+                Image(
+                    painter = painterResource(R.drawable.defaultdrop),
+                    contentDescription = "Drop $i",
+                    modifier = Modifier
+                        .offset(y = dropOffsets[i].value)
+                        .size(120.dp)
+                        .graphicsLayer {
+                            alpha = alphaAnims[i].value
+                            transformOrigin = TransformOrigin(0.5f, 1f)
+                        }
+                        .align(Alignment.TopCenter)
+                )
+            }
         }
-        CircleButton(
-            onClick = {
-                viewModel.dropCoffee("l")
-            },
-            shadow = shadow,
-            color = Color.DarkGray
+
+        // الأزرار
+        Column(
+            modifier = Modifier.align(Alignment.TopCenter)
         ) {
-            IconButton()
-        }
-        CircleButton(
-            onClick = { viewModel.dropCoffee("s") },
-            color = Color.DarkGray,
-            shadow =  shadow
-        ) {
-            IconButton()
+
+            CustomizeButtonBackground(Modifier.padding(vertical = 8.dp, horizontal = 8.dp)) {
+                for (i in 0 until buttonCount) {
+
+                    val color = animateColorAsState(targetValue = if (selectedIndex != i) Color(0xFFF5F5F5) else Color(0xFF7C351B)
+                    ,tween(200))
+                    val IconColor = animateColorAsState(if (selectedIndex != i) Color(0xFFF5F5F5) else Color.White,
+                        tween(200)
+                    )
+                    val shadow = animateDpAsState(
+                        targetValue = if (selectedIndex == i) 8.dp else 0.dp,
+                        animationSpec = tween(0)
+                    )
+
+                    CircleButton(
+                        onClick = {
+                            selectedIndex = if (selectedIndex == i) -1 else i
+                        },
+                        color = color.value,
+                        shadow = shadow
+                    ) {
+                        if (selectedIndex == i)
+                            EmptyIcon(tint = IconColor.value)
+                        else
+                            IconButton(tint = IconColor.value)
+                    }
+                }
+            }
         }
     }
 }
 
-@Composable
-private fun IconButton(modifier: Modifier = Modifier) {
-    Icon(painter = painterResource(R.drawable.coffe_ic), contentDescription = null)
 
+@Composable
+private fun IconButton(tint: Color, modifier: Modifier = Modifier) {
+    Icon(painter = painterResource(R.drawable.coffe_ic), contentDescription = null, tint = tint)
+}
+
+@Composable
+private fun EmptyIcon(tint: Color, modifier: Modifier = Modifier) {
+    Icon(painter = painterResource(R.drawable.coffe_ic), contentDescription = null, tint = tint)
 }

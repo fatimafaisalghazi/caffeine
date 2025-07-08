@@ -1,4 +1,4 @@
-package com.example.coffiiee
+package com.example.coffiiee.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.coffiiee.R
 
 @Composable
 fun HomeScreenAppBar(modifier: Modifier = Modifier) {
@@ -26,8 +27,7 @@ fun HomeScreenAppBar(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .fillMaxWidth()
-            .padding(12.dp)
+            .fillMaxWidth().statusBarsPadding()
     ) {
         Image(
             painter = painterResource(R.drawable.image_of_ghost),

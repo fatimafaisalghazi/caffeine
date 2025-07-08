@@ -21,8 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -32,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,16 +39,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.zIndex
 import com.example.coffiiee.R
-import com.example.coffiiee.component.ActionButton
-import com.example.coffiiee.component.ButtonText
-import com.example.coffiiee.component.CustomizeButtonBackground
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
+import com.example.coffiiee.ui.component.ActionButton
+import com.example.coffiiee.ui.component.ButtonSection
+import com.example.coffiiee.ui.component.ButtonText
+import com.example.coffiiee.ui.component.CustomizeButtonBackground
 import com.example.coffiiee.ui.theme.urbaniFamily
-import com.example.coffiiee.viewModel.CoffeeViewModel
-import com.example.coffiiee.viewModel.CupSizeViewModel
+import com.example.coffiiee.ui.viewModel.CoffeeViewModel
+import com.example.coffiiee.ui.viewModel.CupSizeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -61,11 +60,12 @@ fun CustomizeCoffee(
     val navController = LocalNavController.current
 
     Column(
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(8.dp)
             .fillMaxSize()
+            .background(color = Color.White)
     ) {
         val typeOfCoffee = when (index) {
             0 -> "black"
@@ -76,9 +76,16 @@ fun CustomizeCoffee(
         }
         CustomizeAppBar(typeOfCoffee = typeOfCoffee)
         CustomizeCup(viewModel = viewModel)
-        CustomizeSizeButton(viewModel= viewModel)
-        DroppingCoffeeButtons()
-        ButtonSection(onClick = { navController.navigate(Routes.LoadingScreen) })
+        Column(
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CustomizeSizeButton(viewModel = viewModel)
+            DroppingCoffeeButtons()
+        }
+        ButtonSection(
+            text = "Continue", icon = painterResource(R.drawable.arrow_right),
+            onClick = { navController.navigate(Routes.LoadingScreen) })
     }
 }
 
@@ -119,7 +126,8 @@ fun CustomizeCup(
                     modifier = Modifier
                         .size(200.dp)
                         .align(Alignment.Center)
-                        .offset(y = (-180).dp),
+                        .offset(y = (-180).dp)
+                        .zIndex(1f),
                     contentScale = ContentScale.Fit
                 )
             }
@@ -133,7 +141,9 @@ fun CustomizeCup(
             Image(
                 painter = painterResource(id = targetPainter),
                 contentDescription = null,
-                modifier = Modifier.height(360.dp),
+                modifier = Modifier
+                    .height(360.dp)
+                    .zIndex(1f),
                 contentScale = ContentScale.Fit
             )
         }
@@ -143,30 +153,20 @@ fun CustomizeCup(
             modifier = Modifier
                 .size(64.dp)
                 .align(Alignment.Center)
+                .zIndex(1f)
         )
     }
 }
 
+
 @Composable
-private fun ButtonSection(onClick: () -> Unit, modifier: Modifier = Modifier
-) {
-    ActionButton(onClick = { onClick() }
+private fun CustomizeSizeButton(viewModel: CupSizeViewModel) {
+    CustomizeButtonBackground(
+        Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
     ) {
-        ButtonText(text = "Continue")
-        Icon(
-            imageVector = Icons.Default.ArrowForward,
-            contentDescription = null,
-            Modifier.size(24.dp)
-        )
-    }
-}
-
-@Composable
-private fun CustomizeSizeButton(viewModel:CupSizeViewModel) {
-    CustomizeButtonBackground {
         ButtonAnimation(text = "S", buttonName = "small", viewModel = viewModel)
-        ButtonAnimation(text = "M", buttonName = "med",viewModel= viewModel)
-        ButtonAnimation(text = "L", buttonName = "large",viewModel= viewModel)
+        ButtonAnimation(text = "M", buttonName = "med", viewModel = viewModel)
+        ButtonAnimation(text = "L", buttonName = "large", viewModel = viewModel)
     }
 }
 
@@ -180,7 +180,7 @@ fun CustomizeAppBar(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(12.dp)
+            .statusBarsPadding()
     ) {
         Box(
             modifier = Modifier

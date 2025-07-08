@@ -11,6 +11,7 @@ import androidx.navigation.toRoute
 import com.example.coffiiee.ui.feature.LoadingScreen.LoadingScreen
 import com.example.coffiiee.ui.feature.customizeCoffe.CustomizeCoffee
 import com.example.coffiiee.ui.feature.choosingCoffieScreen.ChoosingCoffeeScreen
+import com.example.coffiiee.ui.feature.closingCup.ClosingCupScreen
 import com.example.coffiiee.ui.feature.gohstScreen.HomeScreen
 
 
@@ -40,6 +41,9 @@ fun CoffeeNavHost(
             }
             composable<Routes.LoadingScreen> {
                 LoadingScreen()
+            }
+            composable<Routes.ClosingCupScreen> {
+                ClosingCupScreen()
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.example.coffiiee.viewModel
+package com.example.coffiiee.ui.viewModel
 
 import com.example.coffiiee.R
 
