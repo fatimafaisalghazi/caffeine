@@ -71,14 +71,6 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             repeatMode = RepeatMode.Reverse,
         ),
     )
-    val opesitStar by infiniteTransition.animateColor(
-        initialValue = Color.LightGray,
-        targetValue = Color.DarkGray,
-        animationSpec = InfiniteRepeatableSpec(
-            animation = tween(700),
-            repeatMode = RepeatMode.Reverse,
-        ),
-    )
 
     Box(
         contentAlignment = Alignment.Center,
@@ -104,7 +96,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
                 Modifier.size(24.dp),
-                tint = opesitStar
+                tint = stars
             )
         }
         Box(
@@ -143,12 +135,12 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
             animation = tween(700),
             repeatMode = RepeatMode.Reverse
         ),
-        initialValue = 50.dp,
+        initialValue = 40.dp,
         typeConverter = Dp.VectorConverter,
         label = "animate the offset of the ghost"
     )
     val shadow by infiniteTransition.animateValue(
-        targetValue = -50.dp,
+        targetValue = 40.dp,
         animationSpec = InfiniteRepeatableSpec(
             animation = tween(700),
             repeatMode = RepeatMode.Reverse,
@@ -157,9 +149,8 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
         typeConverter = Dp.VectorConverter,
         label = "animate the offset of the shadow"
     )
-    Box(
-        contentAlignment = Alignment.Center,
-    ) {
+    Column (verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally){
         Image(
             painter = painterResource(R.drawable.ghost),
             contentDescription = null,
@@ -167,10 +158,6 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
                 .size(244.dp)
                 .offset(y = scale),
         )
-    }
-    Box(
-        contentAlignment = Alignment.Center,
-    ) {
         Icon(
             painter = painterResource(R.drawable.ghost_shadow),
             contentDescription = null,

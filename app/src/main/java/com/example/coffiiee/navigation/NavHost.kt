@@ -12,6 +12,8 @@ import com.example.coffiiee.ui.feature.LoadingScreen.LoadingScreen
 import com.example.coffiiee.ui.feature.customizeCoffe.CustomizeCoffee
 import com.example.coffiiee.ui.feature.choosingCoffieScreen.ChoosingCoffeeScreen
 import com.example.coffiiee.ui.feature.closingCup.ClosingCupScreen
+import com.example.coffiiee.ui.feature.cockes.CookieSemiCircleCarousel
+import com.example.coffiiee.ui.feature.cookeiDetealis.CookeiDetealis
 import com.example.coffiiee.ui.feature.gohstScreen.HomeScreen
 
 
@@ -40,10 +42,18 @@ fun CoffeeNavHost(
                 CustomizeCoffee(index)
             }
             composable<Routes.LoadingScreen> {
-                LoadingScreen()
+                val res = it.toRoute<Routes.LoadingScreen>().res
+                LoadingScreen(res)
             }
             composable<Routes.ClosingCupScreen> {
                 ClosingCupScreen()
+            }
+            composable<Routes.CookieSemiCircleCarousel> {
+                CookieSemiCircleCarousel()
+            }
+            composable<Routes.CookeiDetealis> {
+                val res = it.toRoute<Routes.CookeiDetealis>().res
+                CookeiDetealis(res)
             }
         }
     }

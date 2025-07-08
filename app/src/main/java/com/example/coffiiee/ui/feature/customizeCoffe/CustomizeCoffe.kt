@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,9 +42,7 @@ import androidx.compose.ui.zIndex
 import com.example.coffiiee.R
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
-import com.example.coffiiee.ui.component.ActionButton
 import com.example.coffiiee.ui.component.ButtonSection
-import com.example.coffiiee.ui.component.ButtonText
 import com.example.coffiiee.ui.component.CustomizeButtonBackground
 import com.example.coffiiee.ui.theme.urbaniFamily
 import com.example.coffiiee.ui.viewModel.CoffeeViewModel
@@ -57,8 +54,8 @@ fun CustomizeCoffee(
     index: Int,
     viewModel: CupSizeViewModel = koinViewModel()
 ) {
+    val state by viewModel.state.collectAsState()
     val navController = LocalNavController.current
-
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,7 +66,7 @@ fun CustomizeCoffee(
     ) {
         val typeOfCoffee = when (index) {
             0 -> "black"
-            1 -> "late"
+            1 -> "latte"
             2 -> "espresso"
             3 -> "macchiato"
             else -> "black"
@@ -85,7 +82,7 @@ fun CustomizeCoffee(
         }
         ButtonSection(
             text = "Continue", icon = painterResource(R.drawable.arrow_right),
-            onClick = { navController.navigate(Routes.LoadingScreen) })
+            onClick = { navController.navigate(Routes.LoadingScreen(state.painter)) })
     }
 }
 

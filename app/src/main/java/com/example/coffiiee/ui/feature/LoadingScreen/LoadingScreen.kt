@@ -39,6 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoadingScreen(
+    res :Int,
     viewModel: CupSizeViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -50,7 +51,7 @@ fun LoadingScreen(
         modifier = Modifier.fillMaxSize().background(color = Color.White)
     ) {
         Image(
-            painter = painterResource(state.painter),
+            painter = painterResource(res),
             contentDescription = null
         )
         DraggableBoxWithSlider(navController)

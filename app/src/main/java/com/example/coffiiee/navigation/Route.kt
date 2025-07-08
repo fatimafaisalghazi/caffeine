@@ -15,30 +15,18 @@ sealed interface Routes {
     ):Routes
 
     @Serializable
-    data object LoadingScreen :Routes
+    data class LoadingScreen (
+        val res: Int
+    ):Routes
 
     @Serializable
     data object ClosingCupScreen :Routes
-}
 
-//sealed interface Route {
-//
-//    @Serializable
-//    data object OnboardingScreen : Route
-//
-//    @Serializable
-//    data object HomeScreen : Route
-//
-//    @Serializable
-//    data class TasksScreen(
-//        val taskState: Task.State = Task.State.IN_PROGRESS,
-//    ) : Route
-//
-//    @Serializable
-//    data object CategoriesScreen : Route
-//
-//    @Serializable
-//    data class CategoryTasksScreen(
-//        val categoryId: Long = 0L,
-//    ) : Route
-//}
+    @Serializable
+    data class CookeiDetealis (
+        val res :Int
+    ):Routes
+
+    @Serializable
+    data object CookieSemiCircleCarousel :Routes
+}

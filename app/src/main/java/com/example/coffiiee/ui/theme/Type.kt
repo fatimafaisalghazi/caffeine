@@ -40,3 +40,8 @@ val urbaniFamily = FontFamily(
     Font(R.font.urbanist_medium, FontWeight.Medium),
     Font(R.font.urbanist_semibold, FontWeight.SemiBold),
 )
+
+val snigletFamily = FontFamily(
+    Font(R.font.sniglet_regular, FontWeight.Normal),
+    Font(R.font.sniglet_extrabold, FontWeight.ExtraBold),
+)

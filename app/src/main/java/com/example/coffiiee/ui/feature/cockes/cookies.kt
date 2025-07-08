@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffiiee.R
+import com.example.coffiiee.navigation.LocalNavController
+import com.example.coffiiee.navigation.Routes
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
@@ -101,6 +103,8 @@ import kotlin.math.sin
 
 @Composable
 fun CookieSemiCircleCarousel() {
+    val navController = LocalNavController.current
+
     val items = listOf(
         R.drawable.chocolate,
         R.drawable.cupcake,
@@ -112,6 +116,7 @@ fun CookieSemiCircleCarousel() {
     val pagerState = rememberPagerState(initialPage = 3) { items.size }
     val offset = -40f
     val offsetY = 40f
+
     VerticalPager(
         state = pagerState,
         pageSpacing = (-750).dp
@@ -119,7 +124,7 @@ fun CookieSemiCircleCarousel() {
 
         Card(
             modifier = Modifier
-                .size(200.dp)
+                .size(200.dp).clickable { navController.navigate(Routes.CookeiDetealis(items[page])) }
                 .clip(MaterialTheme.shapes.medium).graphicsLayer {
 //                    rotationX=offsetY
 //                    rotationY=offset

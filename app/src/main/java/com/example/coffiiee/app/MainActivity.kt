@@ -7,12 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.coffiiee.R
 import com.example.coffiiee.navigation.CoffeeNavHost
 import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.feature.LoadingScreen.LoadingScreen
 import com.example.coffiiee.ui.feature.closingCup.ClosingCupScreen
 import com.example.coffiiee.ui.feature.closingCup.CupWithLid
 import com.example.coffiiee.ui.feature.cockes.CookieSemiCircleCarousel
+import com.example.coffiiee.ui.feature.cookeiDetealis.CookeiDetealis
 import com.example.coffiiee.ui.theme.CoffiieeTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,15 +35,16 @@ class MainActivity : ComponentActivity() {
 //                CustomizeCoffee()
 //                ClosingCupScreen()
 
-//                val navController = rememberNavController()
-//                CoffeeNavHost(
-//                    navController,
-//                    startDestination = Routes.HomeScreen,
-//                )
+                val navController = rememberNavController()
+                CoffeeNavHost(
+                    navController,
+                    startDestination = Routes.HomeScreen,
+                )
 
 //                CookieSemiCircleCarousel()
-                ClosingCupScreen()
+//                ClosingCupScreen()
 //                CookieSemiCircleCarousel()
+//                CookeiDetealis(R.drawable.oreo)
             }
         }
     }

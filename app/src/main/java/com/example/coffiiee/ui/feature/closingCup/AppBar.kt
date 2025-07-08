@@ -25,7 +25,7 @@ fun AppBar(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .statusBarsPadding()
+            .statusBarsPadding().padding(horizontal = 16.dp)
     ) {
         Box(
             modifier = Modifier

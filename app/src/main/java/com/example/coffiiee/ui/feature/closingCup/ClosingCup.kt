@@ -42,13 +42,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.coffiiee.R
+import com.example.coffiiee.navigation.LocalNavController
+import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.component.ActionButton
 import com.example.coffiiee.ui.component.ButtonSection
 import com.example.coffiiee.ui.component.ButtonText
 import com.example.coffiiee.ui.theme.urbaniFamily
 
 @Composable
-fun ClosingCupScreen(modifier: Modifier = Modifier) {
+fun ClosingCupScreen(modifier: Modifier = Modifier
+) {
+    val navController = LocalNavController.current
 
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -66,10 +70,14 @@ fun ClosingCupScreen(modifier: Modifier = Modifier) {
                 PrepareToTakeAway()
             }
             Spacer(Modifier.height(24.dp))
-            ButtonSection(text = "Continue", icon = painterResource(R.drawable.arrow_right), onClick = {})
+            ButtonSection(
+                text = "Continue",
+                icon = painterResource(R.drawable.arrow_right),
+                onClick = {navController.navigate(Routes.CookieSemiCircleCarousel)})
         }
     }
 }
+
 
 @Composable
 fun EnjoyMessage(modifier: Modifier = Modifier) {
