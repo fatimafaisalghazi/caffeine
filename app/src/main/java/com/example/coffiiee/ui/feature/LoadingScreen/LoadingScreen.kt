@@ -1,11 +1,8 @@
 package com.example.coffiiee.ui.feature.LoadingScreen
 
-import androidx.compose.animation.core.InfiniteTransition
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.animateIntOffsetAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -17,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -25,20 +23,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -46,10 +38,7 @@ import com.example.coffiiee.R
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.theme.urbaniFamily
-import com.example.coffiiee.ui.viewModel.CupSizeViewModel
 import kotlinx.coroutines.delay
-import org.koin.androidx.compose.koinViewModel
-import kotlin.math.roundToInt
 
 @Composable
 fun LoadingScreen(
@@ -62,7 +51,8 @@ fun LoadingScreen(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White).verticalScroll(scroll)
+            .background(color = Color.White)
+            .verticalScroll(scroll)
     ) {
         Image(
             painter = painterResource(res),
@@ -144,6 +134,10 @@ private fun WaitingMessage(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
-        Image(painterResource(R.drawable.waiting_message), contentDescription = null)
+        Image(
+            painterResource(R.drawable.waiting_message),
+            contentDescription = null,
+            modifier = Modifier.navigationBarsPadding()
+        )
     }
 }

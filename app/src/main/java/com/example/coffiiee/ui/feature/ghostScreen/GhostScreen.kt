@@ -12,13 +12,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,26 +38,46 @@ import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.component.ButtonSection
 import com.example.coffiiee.ui.component.HomeScreenAppBar
-import com.example.coffiiee.ui.theme.urbaniFamily
+import com.example.coffiiee.ui.theme.snigletFamily
 
 @Composable
 fun GhostScreen() {
-    val scroll = rememberScrollState()
+
     val navController = LocalNavController.current
-    Column(
+    LazyColumn(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .fillMaxSize().verticalScroll(scroll)
+            .fillMaxSize()
     ) {
-        HomeScreenAppBar()
-        WelcomeMessage()
-        FlyingGhost()
-        ButtonSection(text = "bring my coffee", icon = painterResource(R.drawable.ic_coffie),
-            onClick = { navController.navigate(route = Routes.ChoosingCoffeeScreen) })
+        item {
+            Column(
+                Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                HomeScreenAppBar()
+                WelcomeMessage()
+            }
+        }
+        item {
+            FlyingGhost()
+        }
+        item {
+            Spacer(Modifier.height(44.dp))
+        }
+        item {
+            Box(Modifier.fillMaxSize()) {
+                ButtonSection(
+                    text = "bring my coffee",
+                    icon = painterResource(R.drawable.ic_coffie),
+                    onClick = { navController.navigate(route = Routes.ChoosingCoffeeScreen) },
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                )
+            }
+        }
     }
 }
-
 
 @Composable
 private fun WelcomeMessage(modifier: Modifier = Modifier) {
@@ -71,6 +91,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
         ),
     )
     Box(
+        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         Box(
@@ -81,7 +102,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
-                Modifier.size(24.dp),
+                Modifier.size(16.dp),
                 tint = stars
             )
         }
@@ -93,7 +114,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
-                Modifier.size(24.dp),
+                Modifier.size(16.dp),
                 tint = stars
             )
         }
@@ -105,7 +126,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(R.drawable.glowing_star),
                 contentDescription = null,
-                Modifier.size(24.dp),
+                Modifier.size(16.dp),
                 tint = stars
             )
         }
@@ -116,12 +137,12 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
                     "to Focus",
             fontSize = 32.sp,
             fontWeight = FontWeight.W400,
-            fontFamily = urbaniFamily,
+            fontFamily = snigletFamily,
             lineHeight = 50.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center),
-            letterSpacing = 0.25.sp
-
+            letterSpacing = 0.25.sp,
+            color = Color(0xDE1F1F1F)
         )
     }
 }
@@ -130,7 +151,7 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
 private fun FlyingGhost(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition()
     val scale by infiniteTransition.animateValue(
-        targetValue = 24.dp,
+        targetValue = 15.dp,
         animationSpec = InfiniteRepeatableSpec(
             animation = tween(800),
             repeatMode = RepeatMode.Reverse

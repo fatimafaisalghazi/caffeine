@@ -86,7 +86,7 @@ fun CustomizeCoffee(
             DroppingCoffeeButtons()
         }
         ButtonSection(
-            text = "Continue", icon = painterResource(R.drawable.arrow_right),
+            text = "Continue", icon = painterResource(R.drawable.icon_right_arrow),
             onClick = { navController.navigate(Routes.LoadingScreen(state.painter)) })
     }
 }
@@ -193,7 +193,7 @@ fun CustomizeAppBar(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                painter = painterResource(R.drawable.icon__1_),
+                painter = painterResource(R.drawable.icon_left_arrow),
                 tint = Color(0xDE1F1F1F),
                 contentDescription = null,
                 modifier = Modifier.size(24.dp)
@@ -204,6 +204,7 @@ fun CustomizeAppBar(
             fontFamily = urbaniFamily,
             fontWeight = FontWeight.W700,
             fontSize = 24.sp,
+            color = Color(0xDE1F1F1F),
             modifier = Modifier.padding(horizontal = 8.dp)
         )
     }

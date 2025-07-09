@@ -52,7 +52,7 @@ fun CupWithLid() {
             contentDescription = "Logo",
             modifier = Modifier.size(64.dp)
         )
-    }
+
 
     val configuration = LocalConfiguration.current
     val screenHeightDp = configuration.screenHeightDp
@@ -67,18 +67,17 @@ fun CupWithLid() {
     ) {
         Box(
             modifier = Modifier
-                .size(300.dp)
-                .offset(y = -333.dp),
+                .size(300.dp).offset(y=-33.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Image(
                 painter = lidPainter,
                 contentDescription = "Lid",
-                modifier = Modifier
+                modifier = Modifier.align(Alignment.TopCenter)
                     .graphicsLayer {
                         transformOrigin = TransformOrigin(0.5f, 1f)
                     }
             )
         }
     }
-}
+}}

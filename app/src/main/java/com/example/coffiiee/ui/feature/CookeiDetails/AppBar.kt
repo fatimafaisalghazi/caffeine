@@ -1,4 +1,4 @@
-package com.example.coffiiee.ui.feature.cookeiDetealis
+package com.example.coffiiee.ui.feature.CookeiDetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

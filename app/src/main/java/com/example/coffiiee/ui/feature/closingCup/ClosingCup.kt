@@ -4,19 +4,20 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
@@ -41,56 +42,47 @@ import com.example.coffiiee.R
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.component.ButtonSection
-import com.example.coffiiee.ui.feature.cookeiDetealis.AppBar
 import com.example.coffiiee.ui.theme.urbaniFamily
 
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ClosingCupScreen(
     modifier: Modifier = Modifier
 ) {
     val navController = LocalNavController.current
 
-//    LazyColumn(
-//        modifier = Modifier.fillMaxSize().background(Color.White),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Top,
-//    ) {
-//        item {
-    val scroll = rememberScrollState()
-            Box(Modifier.fillMaxWidth()
-                , contentAlignment = Alignment.Center) {
-                Column(
-                    Modifier.fillMaxWidth().verticalScroll(scroll)
-                       ,
-                    verticalArrangement = Arrangement.SpaceBetween,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    AnimatedAppBar()
-                    EnjoyMessage()
-                    CupWithLid()
-                    Column(verticalArrangement = Arrangement.Bottom
-                    ) {
-                        PrepareToTakeAway(Modifier.padding(vertical = 16.dp))
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween,
+    ) {
+        stickyHeader {
+            AnimatedAppBar()
 
-                        ButtonSection(
-                            text = "Take snack",
-                            icon = painterResource(R.drawable.arrow_right),
-                            onClick = { navController.navigate(Routes.CookieSemiCircleCarousel) },
-                            Modifier
-                                .padding(top = 32.dp)
-                        )
-                    }
-                }
-
-            }
         }
-//        item {
-//            Box(contentAlignment = Alignment.Center) {
-//
-//            }
-//        }
-//    }
-//}
+
+        item {
+            EnjoyMessage()
+                CupWithLid()
+        }
+        item {
+            Spacer(Modifier.height(24.dp))
+        }
+        item {
+            PrepareToTakeAway(Modifier.padding(vertical = 16.dp))
+            ButtonSection(
+                text = "Take snack",
+                icon = painterResource(R.drawable.icon_right_arrow),
+                onClick = { navController.navigate(Routes.CookieSemiCircleCarousel) },
+                Modifier
+                    .padding(top = 32.dp)
+            )
+        }
+    }
+}
 
 
 @Composable
@@ -162,12 +154,11 @@ fun EnjoyMessage(modifier: Modifier = Modifier) {
 
 @Composable
 fun PrepareToTakeAway(modifier: Modifier = Modifier) {
-
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        CoffeeButton(onClick = {})
+        CoffeeSwitch(onClick = {})
         Text(
             "Take Away",
             fontFamily = urbaniFamily,

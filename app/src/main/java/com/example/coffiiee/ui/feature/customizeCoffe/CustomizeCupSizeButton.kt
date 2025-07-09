@@ -14,9 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.coffiiee.ui.component.CircleButton
-import com.example.coffiiee.ui.viewModel.CoffeeUiState
 import com.example.coffiiee.ui.viewModel.CupSizeViewModel
-import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ButtonAnimation(

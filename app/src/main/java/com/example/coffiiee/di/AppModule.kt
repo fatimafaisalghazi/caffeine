@@ -1,4 +1,4 @@
-package com.example.coffiiee.modele
+package com.example.coffiiee.di
 
 
 import com.example.coffiiee.ui.viewModel.CoffeeViewModel

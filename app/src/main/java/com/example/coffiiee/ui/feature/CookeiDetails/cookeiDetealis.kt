@@ -1,4 +1,4 @@
-package com.example.coffiiee.ui.feature.cookeiDetealis
+package com.example.coffiiee.ui.feature.CookeiDetails
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,11 +23,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.coffiiee.R
+import com.example.coffiiee.navigation.LocalNavController
+import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.component.ButtonSection
 import com.example.coffiiee.ui.theme.snigletFamily
 
 @Composable
-fun CookeiDetealis(painter: Int) {
+fun CookeiDetails(painter: Int) {
+    val navController = LocalNavController.current
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize().background(Color.White),
@@ -38,7 +41,7 @@ fun CookeiDetealis(painter: Int) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
+                modifier = Modifier.padding( vertical = 24.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.coffe_ic),
@@ -97,8 +100,8 @@ fun CookeiDetealis(painter: Int) {
             ) {
                 ButtonSection(
                     text = "Thank youuu",
-                    icon = painterResource(R.drawable.arrow_right),
-                    onClick = {}
+                    icon = painterResource(R.drawable.icon_right_arrow),
+                    onClick = {navController.navigate(Routes.HomeScreen)}
                 )
             }
         }

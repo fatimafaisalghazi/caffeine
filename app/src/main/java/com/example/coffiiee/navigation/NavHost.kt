@@ -8,11 +8,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.coffiiee.ui.feature.CookeiDetails.CookeiDetails
 import com.example.coffiiee.ui.feature.LoadingScreen.LoadingScreen
 import com.example.coffiiee.ui.feature.choosingCoffieScreen.ChoosingCoffeeScreen
 import com.example.coffiiee.ui.feature.closingCup.ClosingCupScreen
-import com.example.coffiiee.ui.feature.cockes.CookieSemiCircleCarousel
-import com.example.coffiiee.ui.feature.cookeiDetealis.CookeiDetealis
+import com.example.coffiiee.ui.feature.cookie.CookieSemiCircleCarousel
 import com.example.coffiiee.ui.feature.customizeCoffe.CustomizeCoffee
 import com.example.coffiiee.ui.feature.ghostScreen.GhostScreen
 
@@ -53,7 +53,7 @@ fun CoffeeNavHost(
             }
             composable<Routes.CookeiDetealis> {
                 val res = it.toRoute<Routes.CookeiDetealis>().res
-                CookeiDetealis(res)
+                CookeiDetails(res)
             }
         }
     }

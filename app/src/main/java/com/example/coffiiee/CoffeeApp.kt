@@ -1,15 +1,16 @@
-package com.example.coffiiee.modele
+package com.example.coffiiee
 
 import android.app.Application
+import com.example.coffiiee.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
 
-class CoffeApp : Application() {
+class CoffeeApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            androidContext(this@CoffeApp)
+            androidContext(this@CoffeeApp)
             modules(appModule)
         }
     }

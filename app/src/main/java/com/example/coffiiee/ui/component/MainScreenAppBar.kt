@@ -51,9 +51,3 @@ fun HomeScreenAppBar(modifier: Modifier = Modifier) {
         }
     }
 }
-
-@Preview
-@Composable
-fun xcvbnjkm(){
-    HomeScreenAppBar()
-}

@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,13 +39,14 @@ import com.example.coffiiee.R
 import com.example.coffiiee.ui.component.CircleButton
 import com.example.coffiiee.ui.component.CustomizeButtonBackground
 import com.example.coffiiee.ui.theme.urbaniFamily
+import kotlinx.coroutines.delay
 
 
 @Composable
 fun DroppingCoffeeButtons() {
 
     val buttonCount = 3
-    var selectedIndex by remember { mutableStateOf(-1) }
+    var selectedIndex by remember { mutableStateOf(0) }
 
     val dropOffsets = List(buttonCount) { index ->
         animateDpAsState(
@@ -55,14 +57,10 @@ fun DroppingCoffeeButtons() {
     val alphaAnims = List(buttonCount) { index ->
         animateFloatAsState(
             targetValue = if (selectedIndex == index) 1f else 0f,
-            animationSpec = tween(300)  // خفّضنا المدة إلى 300 مللي ثانية فقط للfade
+            animationSpec = tween(300)
         )
     }
-    val buttonLabels = listOf("Low", "Medium", "High")
-
     Box(modifier = Modifier.height(150.dp)) {
-
-        // Box ثابت أعلى الشاشة للقهوة
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -103,7 +101,6 @@ fun DroppingCoffeeButtons() {
                         targetValue = if (selectedIndex == i) 8.dp else 0.dp,
                         animationSpec = tween(0)
                     )
-
 
                     CircleButton(
                         onClick = {

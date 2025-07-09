@@ -24,7 +24,7 @@ fun ButtonSection(
         Icon(
             painter = icon,
             contentDescription = null,
-            tint = Color.White,
+            tint = Color(0xDEFFFFFF),
             modifier = Modifier
                 .size(24.dp)
         )
