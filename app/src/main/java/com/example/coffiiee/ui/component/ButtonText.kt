@@ -19,5 +19,6 @@ fun ButtonText(text:String, modifier: Modifier = Modifier) {
         fontFamily = FontFamily.SansSerif,
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(vertical = 18.5.dp),
+        letterSpacing = 0.25.sp
     )
 }

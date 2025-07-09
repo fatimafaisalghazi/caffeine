@@ -4,13 +4,19 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,10 +25,15 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.coffiiee.R
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
+import com.example.coffiiee.ui.feature.cookeiDetealis.AppBar
+import com.example.coffiiee.ui.theme.urbaniFamily
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
@@ -103,39 +114,57 @@ import kotlin.math.sin
 
 @Composable
 fun CookieSemiCircleCarousel() {
-    val navController = LocalNavController.current
-
-    val items = listOf(
-        R.drawable.chocolate,
-        R.drawable.cupcake,
-        R.drawable.cookies,
-        R.drawable.cake,
-        R.drawable.crwason,
-        R.drawable.oreo
-    )
-    val pagerState = rememberPagerState(initialPage = 3) { items.size }
-    val offset = -40f
-    val offsetY = 40f
-
-    VerticalPager(
-        state = pagerState,
-        pageSpacing = (-750).dp
-    ) { page ->
-
-        Card(
-            modifier = Modifier
-                .size(200.dp).clickable { navController.navigate(Routes.CookeiDetealis(items[page])) }
-                .clip(MaterialTheme.shapes.medium).graphicsLayer {
-//                    rotationX=offsetY
-//                    rotationY=offset
-                }
+    val scroll = rememberScrollState()
+    Column(Modifier.background(Color.White).verticalScroll(scroll),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        AppBar()
+        Text(
+            "Take your snack",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.W700,
+            fontFamily = urbaniFamily,
+            lineHeight = 50.sp,
+            textAlign = TextAlign.Center,
+            letterSpacing = 0.25.sp,
+            modifier = Modifier.padding(16.dp)
         )
-        {
-            Image(
-                painter = painterResource(items[page]),
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize()
+
+        val navController = LocalNavController.current
+        val items = listOf(
+            R.drawable.chocolate,
+            R.drawable.cupcake,
+            R.drawable.cookies,
+            R.drawable.cake,
+            R.drawable.crwason,
+            R.drawable.oreo
+        )
+        val pagerState = rememberPagerState(initialPage = 3) { items.size }
+        val offset = -40f
+        val offsetY = 40f
+
+        VerticalPager(
+            state = pagerState,
+            pageSpacing = (-650).dp
+        ) { page ->
+
+            Card(
+                modifier = Modifier
+                    .size(200.dp)
+                    .clickable { navController.navigate(Routes.CookeiDetealis(items[page])) }
+                    .clip(MaterialTheme.shapes.medium)
+                    .graphicsLayer {
+//                    rotationX=offset
+//                    rotationY=offsetY
+                    }
             )
+            {
+                Image(
+                    painter = painterResource(items[page]),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 }

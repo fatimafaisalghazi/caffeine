@@ -9,6 +9,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,13 +24,14 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CircleButton(
     onClick: () -> Unit,
-    shadow: State<Dp>,
     color: Color,
-    content: @Composable () -> Unit
+    modifier: Modifier=Modifier,
+    shadow: State<Dp> = remember { mutableStateOf(0.dp) } ,
+    content: @Composable () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .size(60.dp)
+        modifier = modifier
+            .size(40.dp)
             .graphicsLayer {
                 shadowElevation = shadow.value.toPx()
                 shape = CircleShape

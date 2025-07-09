@@ -3,10 +3,12 @@ package com.example.coffiiee.ui.feature.customizeCoffe
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,13 +32,13 @@ fun ButtonAnimation(
         animationSpec = tween(400),
     )
     val colorText by animateColorAsState(
-        targetValue = if (!isSelected) Color(0x1F1F1F99) else Color(0xFFFFFFDE),
+        targetValue = if (!isSelected) Color(0x991F1F1F) else Color(0xFFFFFFDE),
         animationSpec = tween(400),
     )
     CircleButton(
         onClick = { viewModel.onButtonPressed(buttonName) },
         shadow = shadow,
-        color = color,
+        color = color,modifier= Modifier.padding(8.dp)
     ) {
         Text(
             text = text,

@@ -1,4 +1,4 @@
-package com.example.coffiiee.ui.feature.gohstScreen
+package com.example.coffiiee.ui.feature.ghostScreen
 
 
 import androidx.compose.animation.animateColor
@@ -15,9 +15,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,24 +33,22 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import com.example.coffiiee.ui.component.HomeScreenAppBar
 import com.example.coffiiee.R
-import com.example.coffiiee.ui.component.ActionButton
-import com.example.coffiiee.ui.component.ButtonText
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.component.ButtonSection
+import com.example.coffiiee.ui.component.HomeScreenAppBar
 import com.example.coffiiee.ui.theme.urbaniFamily
 
 @Composable
-fun HomeScreen() {
+fun GhostScreen() {
+    val scroll = rememberScrollState()
     val navController = LocalNavController.current
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(8.dp)
-            .fillMaxSize()
+            .fillMaxSize().verticalScroll(scroll)
     ) {
         HomeScreenAppBar()
         WelcomeMessage()
@@ -71,7 +70,6 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             repeatMode = RepeatMode.Reverse,
         ),
     )
-
     Box(
         contentAlignment = Alignment.Center,
     ) {
@@ -121,7 +119,9 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
             fontFamily = urbaniFamily,
             lineHeight = 50.sp,
             textAlign = TextAlign.Center,
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier.align(Alignment.Center),
+            letterSpacing = 0.25.sp
+
         )
     }
 }
@@ -130,9 +130,9 @@ private fun WelcomeMessage(modifier: Modifier = Modifier) {
 private fun FlyingGhost(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition()
     val scale by infiniteTransition.animateValue(
-        targetValue = 34.dp,
+        targetValue = 24.dp,
         animationSpec = InfiniteRepeatableSpec(
-            animation = tween(700),
+            animation = tween(800),
             repeatMode = RepeatMode.Reverse
         ),
         initialValue = 40.dp,
@@ -142,15 +142,17 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
     val shadow by infiniteTransition.animateValue(
         targetValue = 40.dp,
         animationSpec = InfiniteRepeatableSpec(
-            animation = tween(700),
+            animation = tween(800),
             repeatMode = RepeatMode.Reverse,
         ),
         initialValue = 34.dp,
         typeConverter = Dp.VectorConverter,
         label = "animate the offset of the shadow"
     )
-    Column (verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally){
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             painter = painterResource(R.drawable.ghost),
             contentDescription = null,
@@ -165,7 +167,7 @@ private fun FlyingGhost(modifier: Modifier = Modifier) {
                 .height(28.dp)
                 .width(178.dp)
                 .offset(y = shadow),
-            tint = Color(0x1F1F1F24)
+            tint = Color(0x1F1F1F24).copy(alpha = 0.25f)
         )
     }
 }

@@ -22,9 +22,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,13 +56,14 @@ fun CustomizeCoffee(
 ) {
     val state by viewModel.state.collectAsState()
     val navController = LocalNavController.current
+    val scroll = rememberScrollState()
     Column(
-        verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(8.dp)
+            .padding(horizontal = 8.dp)
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = Color.White).verticalScroll(scroll)
     ) {
         val typeOfCoffee = when (index) {
             0 -> "black"
@@ -72,12 +73,16 @@ fun CustomizeCoffee(
             else -> "black"
         }
         CustomizeAppBar(typeOfCoffee = typeOfCoffee)
-        CustomizeCup(viewModel = viewModel)
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.zIndex(1f)
+        ) {
+            CustomizeCup(viewModel = viewModel)
+        }
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CustomizeSizeButton(viewModel = viewModel)
+
+           CustomizeSizeButton(viewModel = viewModel)
             DroppingCoffeeButtons()
         }
         ButtonSection(
@@ -159,7 +164,6 @@ fun CustomizeCup(
 @Composable
 private fun CustomizeSizeButton(viewModel: CupSizeViewModel) {
     CustomizeButtonBackground(
-        Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
     ) {
         ButtonAnimation(text = "S", buttonName = "small", viewModel = viewModel)
         ButtonAnimation(text = "M", buttonName = "med", viewModel = viewModel)
@@ -189,7 +193,7 @@ fun CustomizeAppBar(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = Icons.Default.ArrowBack,
+                painter = painterResource(R.drawable.icon__1_),
                 tint = Color(0xDE1F1F1F),
                 contentDescription = null,
                 modifier = Modifier.size(24.dp)

@@ -1,6 +1,7 @@
 package com.example.coffiiee.ui.feature.cookeiDetealis
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,14 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.coffiiee.R
 import com.example.coffiiee.ui.component.ButtonSection
-import com.example.coffiiee.ui.feature.closingCup.AppBar
 import com.example.coffiiee.ui.theme.snigletFamily
 
 @Composable
 fun CookeiDetealis(painter: Int) {
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(Color.White),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         item {

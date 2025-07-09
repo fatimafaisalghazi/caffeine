@@ -9,12 +9,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.example.coffiiee.ui.feature.LoadingScreen.LoadingScreen
-import com.example.coffiiee.ui.feature.customizeCoffe.CustomizeCoffee
 import com.example.coffiiee.ui.feature.choosingCoffieScreen.ChoosingCoffeeScreen
 import com.example.coffiiee.ui.feature.closingCup.ClosingCupScreen
 import com.example.coffiiee.ui.feature.cockes.CookieSemiCircleCarousel
 import com.example.coffiiee.ui.feature.cookeiDetealis.CookeiDetealis
-import com.example.coffiiee.ui.feature.gohstScreen.HomeScreen
+import com.example.coffiiee.ui.feature.customizeCoffe.CustomizeCoffee
+import com.example.coffiiee.ui.feature.ghostScreen.GhostScreen
 
 
 @Composable
@@ -32,7 +32,7 @@ fun CoffeeNavHost(
             navController = navController
         ) {
             composable<Routes.HomeScreen> {
-                HomeScreen()
+                GhostScreen()
             }
             composable<Routes.ChoosingCoffeeScreen> {
                 ChoosingCoffeeScreen()

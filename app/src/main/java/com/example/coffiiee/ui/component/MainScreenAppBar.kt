@@ -27,7 +27,8 @@ fun HomeScreenAppBar(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .fillMaxWidth().statusBarsPadding()
+            .fillMaxWidth().statusBarsPadding().padding(horizontal = 16.dp)
+
     ) {
         Image(
             painter = painterResource(R.drawable.image_of_ghost),

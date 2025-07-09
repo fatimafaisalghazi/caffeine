@@ -6,6 +6,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -33,14 +35,22 @@ fun CupWithLid() {
 
 
     val cupPainter = painterResource(R.drawable.cup)
+    val logoPainter = painterResource(R.drawable.logo)
     val lidPainter = painterResource(R.drawable.lid)
 
     Box(modifier = Modifier.size(300.dp), contentAlignment = Alignment.Center) {
+
+        Spacer(Modifier.height(24.dp))
 
         Image(
             painter = cupPainter,
             contentDescription = "Cup",
             modifier = Modifier.size(height = 300.dp, width = 254.dp)
+        )
+        Image(
+            painter = logoPainter,
+            contentDescription = "Logo",
+            modifier = Modifier.size(64.dp)
         )
     }
 
@@ -58,7 +68,7 @@ fun CupWithLid() {
         Box(
             modifier = Modifier
                 .size(300.dp)
-                .offset(y = -340.dp),
+                .offset(y = -333.dp),
             contentAlignment = Alignment.TopStart
         ) {
             Image(

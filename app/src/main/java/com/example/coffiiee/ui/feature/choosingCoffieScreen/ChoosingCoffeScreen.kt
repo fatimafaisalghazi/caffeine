@@ -8,18 +8,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material3.Icon
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,47 +28,79 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.coffiiee.ui.component.HomeScreenAppBar
 import com.example.coffiiee.R
-import com.example.coffiiee.ui.component.ActionButton
-import com.example.coffiiee.ui.component.ButtonText
-import com.example.coffiiee.ui.component.WelcomeMessageText
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
 import com.example.coffiiee.ui.component.ButtonSection
+import com.example.coffiiee.ui.component.HomeScreenAppBar
+import com.example.coffiiee.ui.component.WelcomeMessageText
 import kotlin.math.abs
 
 @Composable
 fun ChoosingCoffeeScreen() {
     val navController = LocalNavController.current
     val pagerState: PagerState = rememberPagerState(3) { 4 }
-    Column(
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally,
+    val scroll = rememberScrollState()
+
+    Box(
         modifier = Modifier
-            .padding(8.dp)
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(Color.White)
     ) {
-        HomeScreenAppBar()
-        WelcomeMessage()
-        CoffeeCup(pagerState)
+        // 📦 المحتوى الكامل القابل للسكرول
+        Column(
+            modifier = Modifier
+                .verticalScroll(scroll)
+                .padding(bottom = 100.dp) // حتى ما يغطيه الزر
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // ⬆️ App bar + رسالة ترحيب
+            HomeScreenAppBar()
+            WelcomeMessage(Modifier.padding(top = 8.dp))
 
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // 🧋 الكوب
+            CoffeeCup(
+                pagerState = pagerState,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+        }
+
+        // 🔘 زر في أسفل الشاشة، غير داخل السكرول
         ButtonSection(
-            text = "Continue", icon = painterResource(R.drawable.arrow_right),
-            onClick = { navController.navigate(Routes.CustomizeCoffeeScreen(index = pagerState.currentPage)) })
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 24.dp),
+            text = "Continue",
+            icon = painterResource(R.drawable.arrow_right),
+            onClick = {
+                navController.navigate(
+                    Routes.CustomizeCoffeeScreen(index = pagerState.currentPage)
+                )
+            }
+        )
     }
-
 }
+
 
 @Composable
 private fun WelcomeMessage(modifier: Modifier = Modifier) {
     Column(
-        horizontalAlignment = Alignment.Start,
+        modifier = modifier,
+        horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Top
     ) {
-        WelcomeMessageText(text = "Good Morning", textSize = 36)
-        WelcomeMessageText(text = "Hamsa ☀", textSize = 36)
-        WelcomeMessageText(text = "What would you like to drink today?", textSize = 16)
+        WelcomeMessageText(text = "Good Morning", textSize = 36, color = Color(0xFFB3B3B3))
+        WelcomeMessageText(text = "Hamsa ☀", textSize = 36, color = Color(0xFF3B3B3B))
+        WelcomeMessageText(
+            text = "What would you like to drink today?", textSize = 16,
+            color = Color(0xCC1F1F1F)
+        )
     }
 }
 
@@ -82,15 +114,16 @@ fun CoffeeCup(
         modifier = modifier
             .fillMaxWidth()
             .height(300.dp),
+        contentPadding = PaddingValues(horizontal = 100.dp, vertical = 56.dp)
 
-        ) { page ->
+    ) { page ->
         val pageOffSet = calculatePageOffset(
             pagerState = pagerState,
             currentPage = page,
             pageFraction = pagerState.currentPageOffsetFraction
         )
-        val baseScale = 1.4f
-        val maxScale = 1.8f
+        val baseScale = 1.6f
+        val maxScale = 2.4f
 
         val scale = baseScale + (1 - abs(pageOffSet)) * (maxScale - baseScale)
 
@@ -166,7 +199,7 @@ private fun calculatePageOffset(
 
 @Preview(showBackground = true)
 @Composable
-fun xdrfvygbnj() {
+fun ChoosingCoffeeScreenPre() {
     ChoosingCoffeeScreen()
 }
 

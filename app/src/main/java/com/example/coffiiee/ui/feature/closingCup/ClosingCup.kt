@@ -9,20 +9,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,39 +40,57 @@ import androidx.compose.ui.unit.sp
 import com.example.coffiiee.R
 import com.example.coffiiee.navigation.LocalNavController
 import com.example.coffiiee.navigation.Routes
-import com.example.coffiiee.ui.component.ActionButton
 import com.example.coffiiee.ui.component.ButtonSection
-import com.example.coffiiee.ui.component.ButtonText
+import com.example.coffiiee.ui.feature.cookeiDetealis.AppBar
 import com.example.coffiiee.ui.theme.urbaniFamily
 
 @Composable
-fun ClosingCupScreen(modifier: Modifier = Modifier
+fun ClosingCupScreen(
+    modifier: Modifier = Modifier
 ) {
     val navController = LocalNavController.current
 
-    LazyColumn(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        item {
-            AppBar()
-            EnjoyMessage()
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CupWithLid()
-                PrepareToTakeAway()
+//    LazyColumn(
+//        modifier = Modifier.fillMaxSize().background(Color.White),
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Top,
+//    ) {
+//        item {
+    val scroll = rememberScrollState()
+            Box(Modifier.fillMaxWidth()
+                , contentAlignment = Alignment.Center) {
+                Column(
+                    Modifier.fillMaxWidth().verticalScroll(scroll)
+                       ,
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    AnimatedAppBar()
+                    EnjoyMessage()
+                    CupWithLid()
+                    Column(verticalArrangement = Arrangement.Bottom
+                    ) {
+                        PrepareToTakeAway(Modifier.padding(vertical = 16.dp))
+
+                        ButtonSection(
+                            text = "Take snack",
+                            icon = painterResource(R.drawable.arrow_right),
+                            onClick = { navController.navigate(Routes.CookieSemiCircleCarousel) },
+                            Modifier
+                                .padding(top = 32.dp)
+                        )
+                    }
+                }
+
             }
-            Spacer(Modifier.height(24.dp))
-            ButtonSection(
-                text = "Continue",
-                icon = painterResource(R.drawable.arrow_right),
-                onClick = {navController.navigate(Routes.CookieSemiCircleCarousel)})
         }
-    }
-}
+//        item {
+//            Box(contentAlignment = Alignment.Center) {
+//
+//            }
+//        }
+//    }
+//}
 
 
 @Composable
